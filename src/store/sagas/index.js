@@ -5,9 +5,11 @@ import {
   fetchImagesFailure,
 } from '../actions/index';
 
-const fetchImagesApi = async (afterValue) => {
+const fetchImagesApi = async (afterValue = '') => {
   const proxyUrl = "https://api.allorigins.win/get?url=";
-  const apiUrl = `https://nature-api.alca.dev/search?q=forest${afterValue ? `&after=${afterValue}` : ""}`;
+  const apiUrl = `https://nature-api.alca.dev/search?q=forest?${new URLSearchParams({
+    after: afterValue
+  })}`;
   const response = await fetch(proxyUrl + encodeURIComponent(apiUrl));
   if (!response.ok) {
     throw new Error(`HTTP error! Status: ${response.status}`);
